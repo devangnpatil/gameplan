@@ -19,7 +19,7 @@ class SigniUp extends Component {
         })
     }
     render() {
-        const {auth} = this.props;
+        const {auth, authError} = this.props;
         if(auth.uid) return <Redirect to='/' />
         return (
             <div className="container">
@@ -43,6 +43,11 @@ class SigniUp extends Component {
                     </div>
                     <div className="input-field">
                         <button className="btn pink light-1 z-depth-0">Sign Up</button>
+                    </div>
+                    <div className="red-text center">
+                        {
+                            authError ? <p>{authError}</p> : null
+                        }
                     </div>
                 </form>
             </div>
