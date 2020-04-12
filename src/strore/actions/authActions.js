@@ -18,3 +18,35 @@ export const signIn = (credentials) => {
         })
     }
 }
+
+export const signOut = () => {
+    return (dispatch, getState, {getFirebase}) => {
+        const firebase = getFirebase();
+        firebase.auth().signOut().then(()=>{
+            dispatch({
+                type: 'SIGNOUT_SUCCESS'
+            })
+        })
+    }
+}
+
+export const signUp = (credentials) => {
+    return (dispatch, getState, {getFirebase}) => {
+        const firebase = getFirebase();
+        firebase.auth().signUpWithEmailAndPassword(
+            credentials.email, 
+            credentials.password
+        ).then(()=> {
+            dispatch(
+                {
+                    type: 'SIGNUP_SUCCESS'
+                }
+            )
+        }).catch((err) => {
+            dispatch({
+                type: 'SIGNUP_ERROR',
+                err
+            })
+        })
+    }
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-
+import {connect} from 'react-redux';
+import {signUp} from '../../strore/actions/authActions'
 class SigniUp extends Component {
     state = {
         firstName: '',
@@ -9,7 +10,7 @@ class SigniUp extends Component {
     }
     handleSubmit = (e) =>{
         e.preventDefault();
-        console.log(this.state);
+        this.props.signUp(this.state);
     }
     handleChange = (e) => {
         this.setState({
@@ -45,5 +46,17 @@ class SigniUp extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        authError: state.auth.authError
+    }
+}
 
-export default SigniUp
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signUp: (cred) => {
+            dispatch(signUp(cred))
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SigniUp)
