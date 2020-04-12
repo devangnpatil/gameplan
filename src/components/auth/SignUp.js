@@ -24,7 +24,7 @@ class SigniUp extends Component {
         return (
             <div className="container">
                 <form className="" onSubmit={this.handleSubmit}>
-                    <h5 className="grey-text text-darken-3">Sign In</h5>
+                    <h5 className="grey-text text-darken-3">Sign Up</h5>
                     <div className="input-field">
                         <label htmlFor="email">Email</label>
                         <input type="email" id="email" onChange={this.handleChange}></input>
@@ -58,8 +58,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        signUp: (cred) => {
-            dispatch(signUp(cred))
+        signUp: (newUser) => {
+            dispatch(signUp(newUser))
         }
     }
 }

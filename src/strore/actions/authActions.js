@@ -30,13 +30,21 @@ export const signOut = () => {
     }
 }
 
-export const signUp = (credentials) => {
-    return (dispatch, getState, {getFirebase}) => {
+export const signUp = (newUser) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
-        firebase.auth().signUpWithEmailAndPassword(
-            credentials.email, 
-            credentials.password
-        ).then(()=> {
+        debugger;
+        const firestore = getFirestore();
+        firebase.auth().createUserWithEmailAndPassword(
+            newUser.email, 
+            newUser.password
+        ).then((resp)=> {
+            return firestore.collection('users').doc(resp.user.uid).set({
+                firstName: newUser.firstName,
+                lastName: newUser.lastName,
+                initials: newUser.firstName[0] + newUser.lastName[0]
+            })
+        }).then(()=>{
             dispatch(
                 {
                     type: 'SIGNUP_SUCCESS'
